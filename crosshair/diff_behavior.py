@@ -217,6 +217,8 @@ def diff_behavior_with_signature(
             )
             if output:
                 yield output
+            if verification_status==VerificationStatus.REFUTED:
+                break
             if exhausted:
                 debug("Stopping due to code path exhaustion. (yay!)")
                 options.incr("exhaustion")
@@ -272,7 +274,7 @@ def run_iteration(
         return2, exc2 = describe_behavior(fn2, args2)
         if (
             flexible_equal(return1, return2)
-            and flexible_equal(args1.arguments, args2.arguments)
+            # and flexible_equal(args1.arguments, args2.arguments)
             and check_exception_equivalence(exception_equivalence, exc1, exc2)
         ):
             # Functions are equivalent if both have the same result,

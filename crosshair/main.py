@@ -939,7 +939,7 @@ def unwalled_main(cmd_args: Union[List[str], argparse.Namespace]) -> int:
             return 2
 
 
-def mypy_and_check(cmd_args: Optional[List[str]] = None) -> None:
+def mypy_and_check(cmd_args: Optional[List[str]] = None) -> int:
     if cmd_args is None:
         cmd_args = sys.argv[1:]
     cmd_args = ["check"] + cmd_args
@@ -959,15 +959,16 @@ def mypy_and_check(cmd_args: Optional[List[str]] = None) -> None:
             sys.exit(mypy_ret)
     engage_auditwall()
     debug("Running crosshair with these args:", check_args)
-    sys.exit(unwalled_main(check_args))
+    # sys.exit(unwalled_main(check_args))
+    return unwalled_main(cmd_args)
 
 
-def main(cmd_args: Optional[List[str]] = None) -> None:
+def main(cmd_args: Optional[List[str]] = None) -> int:
     if cmd_args is None:
         cmd_args = sys.argv[1:]
     engage_auditwall()
-    sys.exit(unwalled_main(cmd_args))
-
+    # sys.exit(unwalled_main(cmd_args))
+    return unwalled_main(cmd_args)
 
 if __name__ == "__main__":
     main()
